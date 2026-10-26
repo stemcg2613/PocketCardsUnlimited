@@ -6,6 +6,9 @@
     var cards = Model?.ToList() ?? new List<PocketCardsUnlimited.Models.SportsCard>();
     int totalCards = cards.Count;
     decimal totalValue = cards.Sum(c => c.EstimatedValue);
+
+    string currentSearch = ViewData["CurrentFilter"]?.ToString() ?? "";
+    bool isSearching = !string.IsNullOrWhiteSpace(currentSearch);
 }
 
 <div class="container mt-4">
@@ -67,33 +70,70 @@
     </div>
 
     <!-- Search -->
-    <form asp-controller="SportsCards"
-          asp-action="Index"
-          method="get"
-          class="mb-4">
+    <div class="card shadow-sm mb-4">
 
-        <div class="input-group">
+        <div class="card-body">
 
-            <input type="text"
-                   name="searchString"
-                   value="@ViewData["CurrentFilter"]"
-                   class="form-control"
-                   placeholder="Search by player, sport, team, manufacturer, or year" />
+            <h5 class="fw-bold mb-3">Search Your Collection</h5>
 
-            <button type="submit"
-                    class="btn btn-primary">
-                Search
-            </button>
+            <p class="text-muted mb-2">
+                Search for sports cards by player name, sport, team,
+                manufacturer, or year.
+            </p>
 
-            <a asp-controller="SportsCards"
-               asp-action="Index"
-               class="btn btn-outline-secondary">
-                Clear
-            </a>
+            <p class="text-muted mb-3">
+                You can also use an asterisk (*) for partial searches.
+                For example, <strong>Mich*</strong> or
+                <strong>*Jordan</strong> will find Michael Jordan.
+                Click Clear to display your full collection again.
+            </p>
+
+            <form asp-controller="SportsCards"
+                  asp-action="Index"
+                  method="get">
+
+                <div class="input-group">
+
+                    <input type="text"
+                           name="searchString"
+                           value="@currentSearch"
+                           class="form-control"
+                           placeholder="Enter player, sport, team, manufacturer, or year"
+                           aria-label="Search sports cards" />
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Search
+                    </button>
+
+                    <a asp-controller="SportsCards"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Clear
+                    </a>
+
+                </div>
+
+            </form>
 
         </div>
 
-    </form>
+    </div>
+
+    <!-- Search Results -->
+    @if (isSearching)
+    {
+        <div class="alert alert-secondary">
+
+            Search results for:
+            <strong>@currentSearch</strong>
+
+            <br />
+
+            <strong>@totalCards</strong> card(s) found.
+
+        </div>
+    }
 
     <!-- Collection Table -->
     @if (cards.Any())
@@ -162,9 +202,26 @@
     {
         <div class="alert alert-info">
 
-            No sports cards found in your collection.
+            @if (isSearching)
+            {
+                <p class="mb-2">
+                    No sports cards matched your search for
+                    <strong>@currentSearch</strong>.
+                </p>
 
-            Click <strong>Add New Card</strong> to get started.
+                <p class="mb-0">
+                    Try another player, team, sport, manufacturer,
+                    or year. You can also click Clear to view
+                    your full collection.
+                </p>
+            }
+            else
+            {
+                <p class="mb-0">
+                    No sports cards found in your collection.
+                    Click <strong>Add New Card</strong> to get started.
+                </p>
+            }
 
         </div>
     }
