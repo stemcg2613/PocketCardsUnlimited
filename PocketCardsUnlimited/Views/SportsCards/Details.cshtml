@@ -1,0 +1,95 @@
+﻿@model PocketCardsUnlimited.Models.SportsCard
+
+@{
+    ViewData["Title"] = "Card Details";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <h1 class="fw-bold mb-2">Sports Card Details</h1>
+
+            <p class="text-muted mb-4">
+                View the information for this sports card.
+            </p>
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">@Model.PlayerName</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered">
+
+                        <tbody>
+                            <tr>
+                                <th>Player Name</th>
+                                <td>@Model.PlayerName</td>
+                            </tr>
+
+                            <tr>
+                                <th>Sport</th>
+                                <td>@Model.Sport</td>
+                            </tr>
+
+                            <tr>
+                                <th>Team</th>
+                                <td>@Model.Team</td>
+                            </tr>
+
+                            <tr>
+                                <th>Manufacturer</th>
+                                <td>@Model.Manufacturer</td>
+                            </tr>
+
+                            <tr>
+                                <th>Year</th>
+                                <td>@Model.Year</td>
+                            </tr>
+
+                            <tr>
+                                <th>Card Number</th>
+                                <td>@Model.CardNumber</td>
+                            </tr>
+
+                            <tr>
+                                <th>Condition</th>
+                                <td>@Model.Condition</td>
+                            </tr>
+
+                            <tr>
+                                <th>Estimated Value</th>
+                                <td class="text-success fw-bold">
+                                    @Model.EstimatedValue.ToString("C")
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <div class="d-flex gap-2 mt-4">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-warning">
+                            Edit Card
+                        </a>
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary">
+                            Back to Collection
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

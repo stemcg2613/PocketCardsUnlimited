@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Home";
+
+    int totalCards = ViewBag.TotalCards ?? 0;
+    decimal totalValue = ViewBag.TotalValue ?? 0m;
+}
+
+<div class="container mt-4">
+
+    <!-- Welcome -->
+    <div class="bg-dark text-white rounded p-5 mb-4">
+
+        <h1 class="display-5 fw-bold">
+            Welcome to Pocket Cards Unlimited
+        </h1>
+
+        <p class="lead mt-3">
+            Your personal sports card collection manager.
+        </p>
+
+        <p>
+            Keep track of your favorite sports cards,
+            organize your collection, and monitor
+            estimated card values all in one place.
+        </p>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="d-flex gap-2 mt-4">
+
+                <a asp-controller="SportsCards"
+                   asp-action="Index"
+                   class="btn btn-primary btn-lg">
+                    My Collection
+                </a>
+
+                <a asp-controller="SportsCards"
+                   asp-action="Create"
+                   class="btn btn-success btn-lg">
+                    + Add New Card
+                </a>
+
+            </div>
+        }
+        else
+        {
+            <div class="d-flex gap-2 mt-4">
+
+                <a asp-area="Identity"
+                   asp-page="/Account/Register"
+                   class="btn btn-primary btn-lg">
+                    Create Account
+                </a>
+
+                <a asp-area="Identity"
+                   asp-page="/Account/Login"
+                   class="btn btn-outline-light btn-lg">
+                    Login
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+    <!-- Collection Summary -->
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <h2 class="fw-bold mb-3">Collection Overview</h2>
+
+        <div class="row mb-4">
+
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+
+                        <h5>Total Sports Cards</h5>
+
+                        <h2 class="text-primary fw-bold">
+                            @totalCards
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Cards currently in your collection.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+
+                        <h5>Estimated Collection Value</h5>
+
+                        <h2 class="text-success fw-bold">
+                            @totalValue.ToString("C")
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Total estimated value of your cards.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+    <!-- Features -->
+    <h2 class="fw-bold mb-3">What You Can Do</h2>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body p-4">
+
+                    <h4>Manage Your Cards</h4>
+
+                    <p>
+                        Add sports cards to your collection
+                        and keep track of important information
+                        like player, team, year, and manufacturer.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body p-4">
+
+                    <h4>Track Card Values</h4>
+
+                    <p>
+                        Record estimated values for your cards
+                        and see the total estimated value
+                        of your collection.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body p-4">
+
+                    <h4>Organize Your Collection</h4>
+
+                    <p>
+                        View card details, update information,
+                        and remove cards you no longer own.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

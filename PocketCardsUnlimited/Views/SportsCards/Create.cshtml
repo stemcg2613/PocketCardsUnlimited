@@ -1,0 +1,189 @@
+﻿@model PocketCardsUnlimited.Models.SportsCard
+
+@{
+    ViewData["Title"] = "Add Card";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <h1 class="fw-bold mb-2">Add New Sports Card</h1>
+
+            <p class="text-muted mb-4">
+                Enter the information below to add a card to your collection.
+            </p>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Card Information</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-controller="SportsCards"
+                          asp-action="Create"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3"></div>
+
+                        <!-- Player -->
+                        <div class="mb-3">
+                            <label asp-for="PlayerName"
+                                   class="form-label"></label>
+
+                            <input asp-for="PlayerName"
+                                   class="form-control"
+                                   placeholder="Example: Michael Jordan" />
+
+                            <span asp-validation-for="PlayerName"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Sport -->
+                        <div class="mb-3">
+                            <label asp-for="Sport"
+                                   class="form-label"></label>
+
+                            <select asp-for="Sport" class="form-select">
+                                <option value="">Select Sport</option>
+                                <option value="Baseball">Baseball</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Football">Football</option>
+                                <option value="Hockey">Hockey</option>
+                                <option value="Soccer">Soccer</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <span asp-validation-for="Sport"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Team -->
+                        <div class="mb-3">
+                            <label asp-for="Team"
+                                   class="form-label"></label>
+
+                            <input asp-for="Team"
+                                   class="form-control"
+                                   placeholder="Example: Chicago Bulls" />
+
+                            <span asp-validation-for="Team"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Manufacturer -->
+                        <div class="mb-3">
+                            <label asp-for="Manufacturer"
+                                   class="form-label"></label>
+
+                            <input asp-for="Manufacturer"
+                                   class="form-control"
+                                   placeholder="Example: Fleer, Topps, Panini" />
+
+                            <span asp-validation-for="Manufacturer"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Year -->
+                        <div class="mb-3">
+                            <label asp-for="Year"
+                                   class="form-label"></label>
+
+                            <input asp-for="Year"
+                                   type="number"
+                                   min="1800"
+                                   max="2100"
+                                   class="form-control"
+                                   placeholder="Example: 1986" />
+
+                            <span asp-validation-for="Year"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Card Number -->
+                        <div class="mb-3">
+                            <label asp-for="CardNumber"
+                                   class="form-label"></label>
+
+                            <input asp-for="CardNumber"
+                                   class="form-control"
+                                   placeholder="Example: 57" />
+
+                            <span asp-validation-for="CardNumber"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Condition -->
+                        <div class="mb-3">
+                            <label asp-for="Condition"
+                                   class="form-label"></label>
+
+                            <select asp-for="Condition" class="form-select">
+                                <option value="">Select Condition</option>
+                                <option value="Mint">Mint</option>
+                                <option value="Near Mint">Near Mint</option>
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Poor">Poor</option>
+                            </select>
+
+                            <span asp-validation-for="Condition"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Estimated Value -->
+                        <div class="mb-4">
+                            <label asp-for="EstimatedValue"
+                                   class="form-label"></label>
+
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+
+                                <input asp-for="EstimatedValue"
+                                       type="number"
+                                       min="0"
+                                       step="0.01"
+                                       class="form-control"
+                                       placeholder="0.00" />
+                            </div>
+
+                            <span asp-validation-for="EstimatedValue"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Save Card
+                            </button>
+
+                            <a asp-controller="SportsCards"
+                               asp-action="Index"
+                               class="btn btn-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
